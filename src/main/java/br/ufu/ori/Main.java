@@ -15,13 +15,11 @@ public class Main {
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HH:mm:ss").format(Calendar.getInstance().getTime());
 
 		
-		String aaaaaaaaaa = args[0].substring(0, args[0].lastIndexOf("/"));
-		//System.out.println(aaaaaaaaaa + "/" + args[0].substring(args[0].lastIndexOf("/")+1, args[0].length()).replaceAll(".txt", "") + "_" + timeStamp + ".txt");
+		String caminho = args[0].substring(0, args[0].lastIndexOf("/"));
 		
 		
-		FileParser.writeFile(FileParser.toList(args[0]), aaaaaaaaaa + "/" + args[0].substring(args[0].lastIndexOf("/")+1, args[0].length()).replaceAll(".txt", "") + "_" + timeStamp + ".txt");
+		FileParser.writeFile(FileParser.toList(args[0]), caminho + "/" + args[0].substring(args[0].lastIndexOf("/")+1, args[0].length()).replaceAll(".txt", "") + "_" + timeStamp + ".txt");
 		
-		//System.out.println(FileParser.toList(args[0]).toString());
 		
 	}
 }
