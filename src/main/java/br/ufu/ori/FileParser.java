@@ -34,7 +34,8 @@ public class FileParser {
 					
 				}
 			}
-			
+		
+			read.close();
 		}catch(FileNotFoundException e) {
 			System.err.println("Errro, arquivo " + path +" nao existe.");
 			System.exit(1);
