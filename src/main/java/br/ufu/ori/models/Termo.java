@@ -50,11 +50,6 @@ public class Termo {
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
-		if (quantidade == null) {
-			if (other.quantidade != null)
-				return false;
-		} else if (!quantidade.equals(other.quantidade))
-			return false;
 		return true;
 	}
 
