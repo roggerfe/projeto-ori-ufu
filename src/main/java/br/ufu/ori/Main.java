@@ -16,7 +16,11 @@ public class Main {
 
 		
 		String aaaaaaaaaa = args[0].substring(0, args[0].lastIndexOf("/"));
-		System.out.println(aaaaaaaaaa + "/" + args[0].substring(args[0].lastIndexOf("/")+1, args[0].length()).replaceAll(".txt", "") + "_" + timeStamp + ".txt");
+		//System.out.println(aaaaaaaaaa + "/" + args[0].substring(args[0].lastIndexOf("/")+1, args[0].length()).replaceAll(".txt", "") + "_" + timeStamp + ".txt");
+		
+		
+		FileParser.writeFile(FileParser.toList(args[0]), aaaaaaaaaa + "/" + args[0].substring(args[0].lastIndexOf("/")+1, args[0].length()).replaceAll(".txt", "") + "_" + timeStamp + ".txt");
+		
 		//System.out.println(FileParser.toList(args[0]).toString());
 		
 	}

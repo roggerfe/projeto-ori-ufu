@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -45,19 +47,32 @@ public class FileParser {
 		}
 		
 		
+		Collections.sort(vocabulario, new Comparator<Termo>() {
+		    public int compare(Termo t1, Termo t2)  {
+		        return t2.getQuantidade() - t1.getQuantidade(); // The order depends on the direction of sorting.
+		    }
+		});
+		
 		return vocabulario;
 		
 	}
 	
-	public static void writeFile (String content, String FILENAME) {
+	public static void writeFile (List<Termo> content, String FILENAME) {
 
 		BufferedWriter bw = null;
 		FileWriter fw = null;
 
+		String conteudoEscrever = "";
+		
+		for(Termo t : content){
+			conteudoEscrever += t.getNome();
+			conteudoEscrever += " " + t.getQuantidade() + "\n";
+		}
+		
 		try {
 			fw = new FileWriter(FILENAME);
 			bw = new BufferedWriter(fw);
-			bw.write(content);
+			bw.write(conteudoEscrever);
 
 			System.out.println("Done");
 
