@@ -46,4 +46,40 @@ public class FileParser {
 		
 	}
 	
+	public static void writeFile (String content, String FILENAME) {
+
+		BufferedWriter bw = null;
+		FileWriter fw = null;
+
+		try {
+			fw = new FileWriter(FILENAME);
+			bw = new BufferedWriter(fw);
+			bw.write(content);
+
+			System.out.println("Done");
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			try {
+
+				if (bw != null)
+					bw.close();
+
+				if (fw != null)
+					fw.close();
+
+			} catch (IOException ex) {
+
+				ex.printStackTrace();
+
+			}
+
+		}
+
+	}
+
 }
