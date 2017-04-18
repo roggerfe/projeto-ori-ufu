@@ -1,0 +1,23 @@
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+}
+
+buildscript {
+	repositories {
+        mavenLocal()
+        jcenter()
+    }
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    testCompile 'junit:junit:4.12'
+    testCompile('org.assertj:assertj-core:1.7.0')
+    testCompile('org.slf4j:slf4j-simple:1.7.7')
+}
+// compilando com UTF-8
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
