@@ -27,6 +27,7 @@ public class FileParser {
 			while(read.hasNext()) {
 				String palavra = read.next();
 				palavra = palavra.trim();
+				palavra = palavra.toLowerCase();
 				palavra = palavra.replaceAll("\\p{Punct}+", "");
 				if(palavra.length() > 3) {
 					Termo t = new Termo(palavra);
