@@ -13,7 +13,7 @@ public class Main {
 		}		
 		
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HH:mm:ss").format(Calendar.getInstance().getTime());
-
+		timeStamp = timeStamp.replaceAll(":", "");
 		
 		String caminho = args[0].substring(0, args[0].lastIndexOf("/"));
 		

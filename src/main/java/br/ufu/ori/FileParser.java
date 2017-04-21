@@ -21,7 +21,7 @@ public class FileParser {
 		List<Termo> vocabulario = new ArrayList<Termo>();
 		
 		try{
-			Scanner read = new Scanner (new File(path));
+			Scanner read = new Scanner (new File(path), "UTF-8");
 			read.useDelimiter("\\s"); // TODO: LIDAR COM \n
 			
 			while(read.hasNext()) {
