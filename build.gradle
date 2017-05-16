@@ -16,6 +16,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile('org.assertj:assertj-core:1.7.0')
     testCompile('org.slf4j:slf4j-simple:1.7.7')
+    testCompile "org.postgresql:postgresql:9.4-1201-jdbc41"
 }
 // compilando com UTF-8
 tasks.withType(JavaCompile) {

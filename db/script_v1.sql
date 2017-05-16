@@ -1,7 +1,6 @@
 -- Rodar com usr_ori conectado no bando db_ori
 CREATE TABLE documento (
 	id integer NOT NULL PRIMARY KEY,
-	nome text NOT NULL UNIQUE,
 	caminho text NOT NULL UNIQUE
 );
 
@@ -38,7 +37,7 @@ CREATE TABLE documento_termo (
 );
 
 CREATE OR REPLACE FUNCTION public.fn_calcula_idf()
- RETURNS TABLE(termo character varying, idf numeric)
+ RETURNS TABLE(termo text, idf numeric)
  LANGUAGE plpgsql
 AS $function$
 	declare

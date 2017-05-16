@@ -5,10 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Scanner;
 
 import br.ufu.ori.models.Termo;
@@ -16,54 +12,31 @@ import br.ufu.ori.models.Termo;
 public class FileParser {
 
 	
-	public static List<Termo> toList(String path){
-		
-		List<Termo> vocabulario = new ArrayList<Termo>();
-		
+	public static String getConteudo(String path) {
+		String conteudo = "";
 		try{
 			Scanner read = new Scanner (new File(path), "UTF-8");
-			read.useDelimiter("\\s"); // TODO: LIDAR COM \n
-			
-			while(read.hasNext()) {
-				String palavra = read.next();
-				palavra = palavra.trim();
-				palavra = palavra.toLowerCase();
-				palavra = palavra.replaceAll("\\p{Punct}+", "");
-				if(palavra.length() > 3) {
-					Termo t = new Termo(palavra);
-					if(vocabulario.contains(t)){
-						int index = vocabulario.indexOf(t);
-						vocabulario.get(index).iteraQuantidade();
-					}else{
-						vocabulario.add(t);	
-					}
-					
-				}
-			}
-		
+			read.useDelimiter("\\Z");
+			conteudo = read.next();
+			conteudo = conteudo.toLowerCase();
+			conteudo = conteudo.replaceAll("\\p{Punct}+", "");
+			conteudo = conteudo.replaceAll("\n", " ");
 			read.close();
 		}catch(FileNotFoundException e) {
 			System.err.println("Errro, arquivo " + path +" nao existe.");
 			System.exit(1);
 		}
 		
-		
-		Collections.sort(vocabulario, new Comparator<Termo>() {
-		    public int compare(Termo t1, Termo t2)  {
-		        return t2.getQuantidade() - t1.getQuantidade(); // The order depends on the direction of sorting.
-		    }
-		});
-		
-		return vocabulario;
+		return conteudo;
 		
 	}
-	
-	public static void writeFile (List<Termo> content, String FILENAME) {
+		
+	/*public static void writeFile (String doc, String termo, Double tfidf, String FILENAME) {
 
 		BufferedWriter bw = null;
 		FileWriter fw = null;
 
-		String conteudoEscrever = "";
+		String conteudoEscrever = "doc termo tfidf\n";
 		
 		for(Termo t : content){
 			conteudoEscrever += t.getNome();
@@ -99,6 +72,6 @@ public class FileParser {
 
 		}
 
-	}
+	}*/
 
 }
