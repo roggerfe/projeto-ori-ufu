@@ -50,8 +50,7 @@ AS $function$
 					join termo t on dt.id_termo = t.id
 					group by t.descricao;	
 	end; 
-$function$
-
+$function$;
 
 CREATE OR REPLACE FUNCTION public.fn_inserir_doc(caminho_arqv text, conteudo text)
  RETURNS void
@@ -82,6 +81,5 @@ AS $function$
 						and d.caminho = '''|| caminho_arqv ||'''
 						on conflict (id_termo, id_documento) do update set frequencia = documento_termo.frequencia + 1;';
 		end loop;
-	end ;
-$function$
-
+	end;
+$function$;
