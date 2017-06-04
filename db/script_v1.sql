@@ -108,3 +108,8 @@ select tfidf.doc, array_agg(tfidf.tfidf::numeric(6,4) order by t.id) as pesos, a
 from tfidf 
 join termo t on tfidf.termo = t.descricao
 group by tfidf.doc
+
+-- norma documentos
+create or replace view public.norma_documento as
+select doc, (SELECT sum(p) FROM UNNEST(pesos_quadrado) p) as soma from vetor_documento
+
