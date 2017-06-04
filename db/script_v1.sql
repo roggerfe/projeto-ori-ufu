@@ -111,5 +111,5 @@ group by tfidf.doc;
 
 -- norma documentos
 create or replace view public.norma_documento as
-select doc, (SELECT sum(p) FROM UNNEST(pesos_quadrado) p) as soma from vetor_documento;
+select doc, (SELECT sqrt(sum(p)) FROM UNNEST(pesos_quadrado) p) as norma from vetor_documento;
 
