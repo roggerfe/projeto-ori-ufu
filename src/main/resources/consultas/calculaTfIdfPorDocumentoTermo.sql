@@ -1,4 +1,5 @@
 -- Query calcula frequencia, tf, idf, tfidf por documento termo 
+CREATE OR REPLACE VIEW public.tfidf as
 select substring(d.caminho, '[^/]*$') as doc, t.descricao as termo, dt.frequencia as freq, (1 + log(2.0, dt.frequencia)) as tf ,idf, (1 + log(2.0, dt.frequencia)) * idf as tfidf
 		from documento_termo dt
 		join documento d on dt.id_documento = d.id
