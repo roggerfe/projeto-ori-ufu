@@ -1,13 +1,8 @@
 package br.ufu.ori;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
-
-import br.ufu.ori.models.Termo;
 
 public class FileParser {
 
@@ -30,48 +25,5 @@ public class FileParser {
 		return conteudo;
 		
 	}
-		
-	/*public static void writeFile (String doc, String termo, Double tfidf, String FILENAME) {
-
-		BufferedWriter bw = null;
-		FileWriter fw = null;
-
-		String conteudoEscrever = "doc termo tfidf\n";
-		
-		for(Termo t : content){
-			conteudoEscrever += t.getNome();
-			conteudoEscrever += " " + t.getQuantidade() + "\n";
-		}
-		
-		try {
-			fw = new FileWriter(FILENAME);
-			bw = new BufferedWriter(fw);
-			bw.write(conteudoEscrever);
-
-			System.out.println("Done");
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-
-		} finally {
-
-			try {
-
-				if (bw != null)
-					bw.close();
-
-				if (fw != null)
-					fw.close();
-
-			} catch (IOException ex) {
-
-				ex.printStackTrace();
-
-			}
-
-		}
-
-	}*/
 
 }
