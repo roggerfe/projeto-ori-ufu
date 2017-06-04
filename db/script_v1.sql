@@ -100,3 +100,11 @@ cross join termo t
 cross join fn_calcula_idf()
 where (d.id, t.id) not in (select dt.id_documento, dt.id_termo from documento_termo dt)
 and termo = t.descricao;
+
+
+-- vetor documentos
+create or replace view public.vetor_documento as
+select tfidf.doc, array_agg(tfidf.tfidf::numeric(6,4) order by t.id) as pesos
+from tfidf 
+join termo t on tfidf.termo = t.descricao
+group by tfidf.doc
