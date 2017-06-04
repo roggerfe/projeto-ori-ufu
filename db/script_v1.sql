@@ -104,7 +104,7 @@ and termo = t.descricao;
 
 -- vetor documentos
 create or replace view public.vetor_documento as
-select tfidf.doc, array_agg(tfidf.tfidf::numeric(6,4) order by t.id) as pesos
+select tfidf.doc, array_agg(tfidf.tfidf::numeric(6,4) order by t.id) as pesos, array_agg(power(tfidf.tfidf::numeric(6,4),2) order by t.id) as pesos_quadrado
 from tfidf 
 join termo t on tfidf.termo = t.descricao
 group by tfidf.doc
