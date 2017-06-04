@@ -17,7 +17,7 @@ public class DB {
 	
 	public static final String USERNAME = "usr_ori";
 	public static final String DBNAME = "db_ori";
-	public static final String PORT = "5433";
+	public static final String PORT = "5432";
 	public static final String HOST = "localhost";
 	public static final String DIRETORIO_CONSULTAS = "/src/main/resources/consultas/";
 	public static final String PASSWORD = "usr_or1";
