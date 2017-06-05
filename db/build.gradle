@@ -1,0 +1,38 @@
+// build.gradle para versionamento do banco de dados.
+
+plugins {
+	id "org.flywaydb.flyway" version "3.2"
+}
+
+repositories {
+    maven {
+        url "http://artifactory.softbox.network:8081/artifactory/repo/"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: JavaPlugin
+
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// ----- respositorios para o Gradle
+dependencies {
+    // flyway
+    compile "org.postgresql:postgresql:9.4-1201-jdbc41"
+    // junit
+    testCompile 'junit:junit:4.11'
+}
+
+// compilando com UTF-8
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+flyway {
+	url='jdbc:postgresql://localhost:5432/db_ori?autoDeserialize=true'
+    user = 'usr_ori'
+    password = 'usr_or1'
+}
