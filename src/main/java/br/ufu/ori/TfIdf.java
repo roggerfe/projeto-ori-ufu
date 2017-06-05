@@ -18,7 +18,7 @@ public class TfIdf {
 	 */
 	public static void exibirPesos() throws IOException, SQLException {
 		
-		ResultSet resultado = DB.query("select * from tfidf");
+		ResultSet resultado = DB.query("select * from tfidf_documento");
 			
 		System.out.println("--------Pesos TFIDF--------");
 		while(resultado.next()){
@@ -33,7 +33,7 @@ public class TfIdf {
 	
 	
 	public static void escreverArquivo(String path) throws IOException, SQLException {
-		ResultSet resultado = DB.query("select * from tfidf");
+		ResultSet resultado = DB.query("select * from tfidf_documento");
 		
 		String escrever = "Doc termo tfidf\n";
 		
