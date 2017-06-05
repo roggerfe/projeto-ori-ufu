@@ -39,7 +39,7 @@ CREATE TABLE documento_termo (
 
 CREATE TABLE query(
 	id integer NOT NULL PRIMARY KEY,
-	query_id integer NOT NULL,
+	consulta text NOT NULL,
 	termo_consulta text NOT NULL UNIQUE,
 	frequencia integer NOT NULL DEFAULT 1
 );
@@ -110,14 +110,12 @@ AS $function$
 	declare
 		conteudo_array text array;
 		palavra text;
-		i integer;
 	begin
-		select COALESCE(max(query_id)+1,1) into i from query;
 		conteudo_array := regexp_split_to_array(conteudo, E'\\s+');
 		FOREACH palavra in array conteudo_array
 		loop
-			execute 'insert into query(query_id, termo_consulta, frequencia)
-						select '||i||','''||palavra||''', 1
+			execute 'insert into query(consulta, termo_consulta, frequencia)
+						select '''||conteudo||''','''||palavra||''', 1
 						on conflict(termo_consulta) do update set frequencia = query.frequencia + 1;';
 		end loop;
 	end;
@@ -154,7 +152,7 @@ select doc, (SELECT sqrt(sum(p)) FROM UNNEST(pesos_quadrado) p) as norma from ve
 
 --  calcular tf, idf das queries
 create or replace view public.tfidf_query as
-select q.query_id,
+select q.consulta,
 	q.termo_consulta,
 	q.frequencia as frequencia,
 	1::numeric + log(2.0, q.frequencia::numeric) AS tf,
@@ -164,7 +162,7 @@ from query q
 cross join fn_calcula_idf() fn_calcula_idf(termo, idf)
 where fn_calcula_idf.termo = q.termo_consulta
 	union
-select q.query_id, t.descricao, 0 as frequencia, 0 as tf, idf, 0 as tfidf
+select q.consulta, t.descricao, 0 as frequencia, 0 as tf, idf, 0 as tfidf
 from query q
 cross join termo t
 cross join fn_calcula_idf()
@@ -173,16 +171,16 @@ and termo = t.descricao;
 
 -- vetor queries
 create or replace view public.vetor_query as
-select tq.query_id,
+select tq.consulta,
 	array_agg(tq.tfidf::numeric(6,4) order by t.id) as pesos,
 	array_agg(power(tq.tfidf::numeric(6,4),2) order by t.id) as pesos_quadrado
 from tfidf_query tq
 join termo t on tq.termo_consulta = t.descricao
-group by tq.query_id;
+group by tq.consulta;
 
 -- norma queries
 create or replace view public.norma_query as
-select query_id, (SELECT sqrt(sum(p)) FROM UNNEST(pesos_quadrado) p) as norma from vetor_query;
+select consulta, (SELECT sqrt(sum(p)) FROM UNNEST(pesos_quadrado) p) as norma from vetor_query;
 
 -- function soma array
 CREATE FUNCTION array_sum(NUMERIC[]) returns numeric AS 
@@ -194,7 +192,7 @@ LANGUAGE sql;
 
 -- similaridade
 create or replace view public.similaridade as
-SELECT q.query_id, d.doc, qd.prod, array_sum(qd.prod)
+SELECT q.consulta, d.doc, qd.prod, array_sum(qd.prod)
 FROM   vetor_query          q
 CROSS  JOIN vetor_documento d
 CROSS  JOIN LATERAL (
