@@ -5,9 +5,8 @@ plugins {
 }
 
 repositories {
-    maven {
-        url "http://artifactory.softbox.network:8081/artifactory/repo/"
-    }
+           mavenLocal()
+        jcenter()
 }
 
 apply plugin: 'java'

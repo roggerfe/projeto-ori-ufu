@@ -1,3 +1,4 @@
+-- function inserir query
 CREATE OR REPLACE FUNCTION public.fn_inserir_query(conteudo text)
  RETURNS void
  LANGUAGE plpgsql
@@ -11,9 +12,7 @@ AS $function$
 		loop
 			execute 'insert into query(consulta, termo_consulta, frequencia)
 						select '''||conteudo||''','''||palavra||''', 1
-						on conflict(termo_consulta) do update set frequencia = query.frequencia + 1
-						where not exists (select id from query where consulta = '''||conteudo||''');';
+						on conflict(termo_consulta) do update set frequencia = query.frequencia + 1;';
 		end loop;
 	end;
 $function$;
-
