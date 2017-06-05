@@ -183,3 +183,19 @@ group by tq.query_id;
 -- norma queries
 create or replace view public.norma_query as
 select query_id, (SELECT sqrt(sum(p)) FROM UNNEST(pesos_quadrado) p) as norma from vetor_query;
+
+-- function soma array
+CREATE FUNCTION array_sum(NUMERIC[]) returns numeric AS 
+$$
+  SELECT sum(unnest) FROM (select unnest($1)) as foo;
+$$
+
+-- similaridade
+create or replace view public.similaridade as
+SELECT q.query_id, d.doc, qd.prod, array_sum(qd.prod)
+FROM   vetor_query          q
+CROSS  JOIN vetor_documento d
+CROSS  JOIN LATERAL (
+   SELECT ARRAY(SELECT x*y FROM unnest(q.pesos, d.pesos) t(x, y)) AS prod
+) qd;
+LANGUAGE sql;
