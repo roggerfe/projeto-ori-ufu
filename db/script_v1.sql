@@ -189,6 +189,8 @@ CREATE FUNCTION array_sum(NUMERIC[]) returns numeric AS
 $$
   SELECT sum(unnest) FROM (select unnest($1)) as foo;
 $$
+LANGUAGE sql;
+
 
 -- similaridade
 create or replace view public.similaridade as
@@ -198,4 +200,3 @@ CROSS  JOIN vetor_documento d
 CROSS  JOIN LATERAL (
    SELECT ARRAY(SELECT x*y FROM unnest(q.pesos, d.pesos) t(x, y)) AS prod
 ) qd;
-LANGUAGE sql;
