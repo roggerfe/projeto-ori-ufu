@@ -10,7 +10,7 @@ public class Similaridade {
 	
 	
 	public static void exibirSimilaridade(String query) throws IOException, SQLException {
-		ResultSet resultado = DB.query("select consulta, doc, sim from similaridade order by sim desc;");
+		ResultSet resultado = DB.query("select consulta, doc, sim from similaridade where consulta = '"+query+"' order by sim desc;");
 		
 					
 		System.out.println("--------Similaridades--------");
