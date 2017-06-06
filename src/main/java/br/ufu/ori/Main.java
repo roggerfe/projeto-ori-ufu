@@ -15,6 +15,16 @@ public class Main {
 		int opcao;
 		Scanner entrada = new Scanner(System.in);
 
+		int qtdArquivos = args.length;
+
+		if (qtdArquivos == 0) {
+			System.err.println("Passar como parametro todos os documentos da colecao.");
+			System.exit(1);
+		}
+
+		DB.queryArquivo("limpar.sql"); // limpa dados existentes
+
+		
 		do {
 			Menu.menu();
 			opcao = entrada.nextInt();
@@ -22,20 +32,6 @@ public class Main {
 			switch (opcao) {
 			case 1:
 				Menu.inserirDocumentos();
-
-				int qtdArquivos = args.length;
-
-				if (qtdArquivos == 0) {
-					System.err.println("Passar como parametro todos os documentos da colecao.");
-					System.exit(1);
-				}
-
-				DB.queryArquivo("limpar.sql"); // limpa dados existentes
-
-				String timeStamp = new SimpleDateFormat("yyyyMMdd_HH:mm:ss").format(Calendar.getInstance().getTime());
-				timeStamp = timeStamp.replaceAll(":", "");
-
-				String caminho = args[0].substring(0, args[0].lastIndexOf("/"));
 
 				// Armazena conteudo dos arquivos nas tabelas termo, documento e
 				// termo_documento
@@ -51,10 +47,11 @@ public class Main {
 				break;
 
 			case 3:
-				Menu.escreverArquivo();
-				String timeStamp2 = new SimpleDateFormat("yyyyMMdd_HH:mm:ss").format(Calendar.getInstance().getTime());
-				timeStamp = timeStamp2.replaceAll(":", "");
-				TfIdf.escreverArquivo(System.getProperty("user.dir") + "/resultado_" + timeStamp + ".txt");
+				//Menu.escreverArquivo();
+				//String timeStamp2 = new SimpleDateFormat("yyyyMMdd_HH:mm:ss").format(Calendar.getInstance().getTime());
+				//timeStamp = timeStamp2.replaceAll(":", "");
+				//TfIdf.escreverArquivo(System.getProperty("user.dir") + "/resultado_" + timeStamp + ".txt");
+				Menu.consultar(entrada);
 				break;
 
 			case 4:
