@@ -27,7 +27,6 @@ public class Menu {
       		try {
 				TfIdf.exibirPesos();
 			} catch (IOException | SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     }
