@@ -47,10 +47,6 @@ public class Main {
 				break;
 
 			case 3:
-				//Menu.escreverArquivo();
-				//String timeStamp2 = new SimpleDateFormat("yyyyMMdd_HH:mm:ss").format(Calendar.getInstance().getTime());
-				//timeStamp = timeStamp2.replaceAll(":", "");
-				//TfIdf.escreverArquivo(System.getProperty("user.dir") + "/resultado_" + timeStamp + ".txt");
 				Menu.consultar(entrada);
 				break;
 
@@ -63,9 +59,6 @@ public class Main {
 			}
 		} while (opcao != 0);
 
-		// FileParser.writeFile(FileParser.toList(args[0]), caminho + "/" +
-		// args[0].substring(args[0].lastIndexOf("/")+1,
-		// args[0].length()).replaceAll(".txt", "") + "_" + timeStamp + ".txt");
 
 	}
 }
