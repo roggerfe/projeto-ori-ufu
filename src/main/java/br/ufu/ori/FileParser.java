@@ -26,14 +26,16 @@ public class FileParser {
 				try{
 					idDocumento = Integer.valueOf(infoArquivo.substring(0, infoArquivo.indexOf("\n")).trim());
 					if(processar.contains(idDocumento)){
-						//System.out.println("PROCESSAR DOCUMENTO " + idDocumento);
-						//System.out.println("*********");
-						//System.out.println("CONTEUDO DO DOCUMENTO");
 						String conteudoDoc = infoArquivo.substring(infoArquivo.indexOf(".W")+2, infoArquivo.length()).trim();
 						conteudoDoc = conteudoDoc.toLowerCase();
-						conteudoDoc = conteudoDoc.replaceAll("\\p{Punct}+", "");
-						conteudoDoc = conteudoDoc.replaceAll("[^a-zA-Z\\s]", "");
-						//System.out.println(conteudoDoc);
+						conteudoDoc = conteudoDoc.replaceAll("\\p{Punct}^+", "");
+						//conteudoDoc = conteudoDoc.replaceAll("[^a-zA-Z\\sç]", "");
+						conteudoDoc = conteudoDoc.replaceAll("[0-9,/\\.]", "");
+						conteudoDoc = conteudoDoc.replaceAll("'", "''");
+						conteudoDoc = conteudoDoc.replaceAll("-", " ");
+						conteudoDoc = conteudoDoc.replaceAll("[()]", "");
+						//conteudoDoc = conteudoDoc.replaceAll(",", "");
+						//conteudoDoc = conteudoDoc.replaceAll("/", "");
 						docs.add(new Documento(idDocumento, conteudoDoc));
 					}
 				}catch(StringIndexOutOfBoundsException e){

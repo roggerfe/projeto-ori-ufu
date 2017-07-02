@@ -20,7 +20,8 @@ public class Main {
 			System.err.println("Passar como parametro o arquivo da colecao e o arquivo contendo os docts selecionados.");
 			System.exit(1);
 		}
-
+		
+		
 		DB.queryArquivo("limpar.sql"); // limpa dados existentes
 
 		
@@ -41,6 +42,9 @@ public class Main {
 				List<Documento> documentos = FileParser.processarColecao(colecao, docs);
 				
 				for(Documento d : documentos) {
+					//System.out.println("-------conteudo");
+					//System.out.println(d.getConteudo());
+					//System.out.println(colecao+"_"+d.getId());
 					DB.query("select fn_inserir_doc('"+colecao+"_"+d.getId()+"', '"+d.getConteudo()+"')");
 				}
 				
