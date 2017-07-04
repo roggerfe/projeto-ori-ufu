@@ -1,0 +1,25 @@
+
+--caso onde fn_calcula_ni <= fn_qtd_docs / 2
+CREATE OR REPLACE VIEW public.similaridade_probabilistico AS
+ SELECT d.caminho,
+    q.consulta,
+    log(2.0, (fn_qtd_docs()::numeric + 0.5) / fn_calcula_ni(t.descricao)::numeric + 0.5) AS simprob
+   FROM query q
+     CROSS JOIN documento_termo dt
+     JOIN documento d ON dt.id_documento = d.id
+     JOIN termo t ON dt.id_termo = t.id AND q.termo_consulta = t.descricao
+    WHERE fn_calcula_ni(t.descricao)::numeric <= (fn_qtd_docs()::numeric/2)
+  ORDER BY q.consulta;
+  
+  
+  -- caso onde fn_calcula_ni > fn_qtd_docs  / 2
+  union 
+  SELECT d.caminho,
+    q.consulta,
+    log(2.0, (fn_qtd_docs()::numeric - fn_calcula_ni(t.descricao)::numeric + 0.5) / fn_calcula_ni(t.descricao)::numeric + 0.5) AS simprob
+   FROM query q
+     CROSS JOIN documento_termo dt
+     JOIN documento d ON dt.id_documento = d.id
+     JOIN termo t ON dt.id_termo = t.id AND q.termo_consulta = t.descricao
+    WHERE fn_calcula_ni(t.descricao)::numeric > (fn_qtd_docs()::numeric/2)
+  ORDER BY q.consulta;

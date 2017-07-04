@@ -13,7 +13,8 @@ public class Menu {
         System.out.println("0. Finalizar Execucao");
         System.out.println("1. Processar Documentos");
         System.out.println("2. Exibir Pesos TFIDF");
-        System.out.println("3. Similaridade query");
+        System.out.println("3. Similaridade Vetorial - query");
+        System.out.println("4. Similaridade Probabilistico - query");
         System.out.println("Opcao:");
     }
 
@@ -37,7 +38,7 @@ public class Menu {
     }
     
     
-    public static void consultar(Scanner entrada) throws IOException, SQLException{
+    public static void consultarVetorial(Scanner entrada) throws IOException, SQLException{
         System.out.println("----SIMILARIDADE QUERY--------");
         
         System.out.println("Digite o nome da query desejada");
@@ -47,8 +48,23 @@ public class Menu {
         q = q.trim();
         DB.query("select fn_inserir_query('"+q+"');");
 
-        Similaridade.exibirSimilaridade(q);
+        Similaridade.exibirSimilaridadeVetorial(q);
     }
+    
+
+    public static void consultarProbabilistico(Scanner entrada) throws IOException, SQLException{
+        System.out.println("----SIMILARIDADE QUERY--------");
+        
+        System.out.println("Digite o nome da query desejada");
+        entrada = new Scanner(System.in);        
+        String q = entrada.nextLine();
+        
+        q = q.trim();
+        DB.query("select fn_inserir_query('"+q+"');");
+
+        Similaridade.exibirSimilaridadeProbabilistico(q);
+    }
+
     
     
 }

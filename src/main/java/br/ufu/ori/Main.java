@@ -56,11 +56,11 @@ public class Main {
 				break;
 
 			case 3:
-				Menu.consultar(entrada);
+				Menu.consultarVetorial(entrada);
 				break;
 
 			case 4:
-
+				Menu.consultarProbabilistico(entrada);
 				break;
 
 			default:
