@@ -1,8 +1,9 @@
 CREATE TABLE query(
 	id integer NOT NULL PRIMARY KEY,
 	consulta text NOT NULL,
-	termo_consulta text NOT NULL UNIQUE,
-	frequencia integer NOT NULL DEFAULT 1
+	termo_consulta text NOT NULL,
+	frequencia integer NOT NULL DEFAULT 1,
+	unique (consulta, termo_consulta)
 );
 CREATE SEQUENCE query_id_seq
 	START WITH 1

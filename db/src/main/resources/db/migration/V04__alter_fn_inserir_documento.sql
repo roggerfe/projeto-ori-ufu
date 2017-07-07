@@ -15,7 +15,7 @@ AS $function$
 		conteudo_array := regexp_split_to_array(conteudo, E'\\s+');
 		FOREACH palavra in array conteudo_array
 		loop
-			  if length(palavra) >=3 then 
+			 -- if length(palavra) >=3 then 
 				insert into termo(descricao)
 							select palavra
 							where not exists(
@@ -28,7 +28,7 @@ AS $function$
 							where t.descricao = palavra
 							and d.caminho = caminho_arqv
 							on conflict (id_termo, id_documento) do update set frequencia = documento_termo.frequencia + 1;
-				 end if;
+			--	 end if;
 		end loop;
 	end;
 $function$;

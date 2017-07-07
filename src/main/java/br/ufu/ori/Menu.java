@@ -43,12 +43,17 @@ public class Menu {
         
         System.out.println("Digite o nome da query desejada");
         entrada = new Scanner(System.in);        
+        //entrada.next();
         String q = entrada.nextLine();
         
+        
         q = q.trim();
+        System.out.println("Query inserir " + q);
         DB.query("select fn_inserir_query('"+q+"');");
 
         Similaridade.exibirSimilaridadeVetorial(q);
+        
+        
     }
     
 
@@ -63,6 +68,7 @@ public class Menu {
         DB.query("select fn_inserir_query('"+q+"');");
 
         Similaridade.exibirSimilaridadeProbabilistico(q);
+        
     }
 
     
