@@ -24,14 +24,14 @@ public class Similaridade {
 	}
 	
 	public static void exibirSimilaridadeProbabilistico(String query) throws IOException, SQLException {
-		ResultSet resultado = DB.query("select consulta, doc, sim from similaridade where consulta = '"+query+"' order by sim desc;");
+		ResultSet resultado = DB.query("select consulta, doc, simprob from similaridade_probabilistico where consulta = '"+query+"' order by simprob desc;");
 		
 					
 		System.out.println("--------Similaridades--------");
 		while(resultado.next()){
 			System.out.println("Consulta: " + resultado.getString("consulta"));
 			System.out.println("Documento: " + resultado.getString("doc"));
-			System.out.println("Similaridade: " + resultado.getDouble("sim"));
+			System.out.println("Similaridade: " + resultado.getDouble("simprob"));
 			System.out.println("************************************************");
 				
 		}
